@@ -13,8 +13,7 @@ export class TransactionController {
     next: NextFunction,
   ) {
     try {
-      const { userId } = req.params;
-      const { amount, currency } = req.body;
+      const { amount, currency, email } = req.body;
 
       const paymentIntent = await this.stripe.paymentIntents.create({
         amount,
@@ -24,7 +23,7 @@ export class TransactionController {
       await TransactionService.createTransaction({
         amount,
         currency,
-        userId,
+        email,
       });
 
       res.json({ clientSecret: paymentIntent.client_secret });
