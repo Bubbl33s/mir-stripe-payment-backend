@@ -1,8 +1,13 @@
 import prisma from "./prisma";
-import Stripe from "stripe";
+
+type CreateTransaction = {
+  amount: number;
+  currency: string;
+  userId: string;
+};
 
 export class TransactionService {
-  static async createTransaction(data: any) {
+  static async createTransaction(data: CreateTransaction) {
     return prisma.transaction.create({ data });
   }
 }
